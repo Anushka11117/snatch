@@ -5,7 +5,7 @@ const dbgr=require("debug")("development:mongoose");
 
 
 mongoose
- .connect(`${config.get("MONGODB_URI")}/miniproject`)
+ .connect(`${config.get("MONGODB_URI")}/miniproject `)
 .then(function(){
     dbgr("connected");
 })

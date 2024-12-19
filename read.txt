@@ -18,3 +18,5 @@ dicount
 bg color
 panel color
 text color
+
+$env:NODE_ENV="development"
