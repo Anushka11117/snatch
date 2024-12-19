@@ -20,3 +20,31 @@ panel color
 text color
 
 $env:NODE_ENV="development"
+$env:DEBUG="development:mongoose"
+npx nodemon .\app.js
+
+git add .
+git commit -m "Staged all changes for the project"
+
+
+const dbgr=require("debug")("development:mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/miniproject")
+.then(function(){
+dbgr("connected");
+})
+.catch(function(err){
+    dbgr(err);
+
+});
+
+
+mongoose
+ .connect(`${config.get("MONGODB_URI")}/miniproject `)
+.then(function(){
+    dbgr("connected");
+})
+.catch(function(err){
+    dbgr(err);
+
+});
