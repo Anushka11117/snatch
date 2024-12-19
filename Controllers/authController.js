@@ -1,6 +1,6 @@
 const userModel=require("../models/user-model")
   const bcrypt= require("bcrypt");
-  const jwt=require("jsonwebtoken");
+
 const { generateTokens } = require('../utils/generate token');
 
 
@@ -8,8 +8,13 @@ const { generateTokens } = require('../utils/generate token');
 module.exports.registerUser=async function(req,res){
 
 try {
-    console.log(req.body);
+  
 let{fullname, email, password}=req.body;
+
+
+let userc= await userModel.findOne({email:email});
+if(userc)return res.status(401).send("you already have an account");
+
 
 let salt= await bcrypt.genSalt(10);
 let hashed_Password= await bcrypt.hash(password, salt);
@@ -24,7 +29,7 @@ let hashed_Password= await bcrypt.hash(password, salt);
 
     let token=generateTokens(user);
     res.cookie("token",token);
-    res.send("its working");
+    res.send("user registered successfully");
     
 
 

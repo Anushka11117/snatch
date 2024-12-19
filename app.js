@@ -7,7 +7,7 @@ const ownersRouter = require("./routes/ownersRouter");
 const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 // const indexRouter = require("./routes/index");
-
+const jwt = require('jsonwebtoken');
  require("dotenv").config();
 
 
