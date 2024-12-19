@@ -5,8 +5,9 @@ const ownerModel =require("../models/owner-model");
 if(process.env.NODE_ENV==="development"){
     router.post("/create", async function(req,res){
      let owners= await ownerModel.find();
-if(owners.lenghth>0){
-    return res.status(503).send("you dont have permission to create a new user.");
+    
+if(owners.length>0){
+    return res.status(504).send("you dont have permission to create a new user.");
 
 }
 
