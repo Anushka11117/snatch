@@ -1,11 +1,12 @@
 const mongoose=require('mongoose');
 
 const productSchema =mongoose.Schema({
-    image:String,
+    image:Buffer,
     name:String,
     price:Number,
-    dicount:{type:Number,
-        default:0},
+    discount:{type:Number,
+        default:0
+    },
     bgcolor:String,
     panelcolor:String,
     textcolor:String,

@@ -11,12 +11,15 @@ try {
   
 let{fullname, email, password}=req.body;
 
+if (!fullname || !email || !password) {
+    return res.status(400).send("All fields are required.");
+}
 
 let ifUser= await userModel.findOne({email:email});
 if (ifUser) {     
-    // req.flash("message" , "This email is already registered");
-    // res.redirect("/");
-    res.send("already registered")
+    req.flash("message" , "This email is already registered");
+    res.redirect("/");
+    
   }
 
   const hashedPass = await hashPass(password);
@@ -30,9 +33,9 @@ if (ifUser) {
 
     const token=generateTokens(user);
     res.cookie("token",token);
-    // req.flash("message" , "Account created, you can login now");
-    // res.redirect("/");
-    res.send("created")
+    req.flash("message" , "Account created, you can login now");
+    res.redirect("/");
+    
 } 
 catch (error) { res.send(error.message);}
 }
@@ -43,26 +46,31 @@ catch (error) { res.send(error.message);}
       let { email, password } = req.body;
       let ifUser = await userModel.findOne({ email: email });
       if (!ifUser) {
-        //  req.flash("message" ,"Email or password is incorrect");
-        //  res.redirect('/')
-        res.send("create first")
+         req.flash("message" ,"Email or password is incorrect");
+         res.redirect('/');
       }
        else {
         let user = ifUser;
         let isMatch = await comparePass(password , user.password);
        if (!isMatch) {
-        // req.flash("message" ,"Email or password is incorrect");
-        // res.redirect('/')
+        req.flash("message" ,"Email or password is incorrect");
+        res.redirect('/')
        }
        if(isMatch) {
          const token = generateTokens(user);
          res.cookie("token" , token)
-        //  console.log("redirecting")
-        //  res.redirect("/shop")
-        res.send('you can login')
+         console.log("redirecting")
+         res.redirect("/shop")
+       
          }
       }
     } catch (error) {
       res.send(error.message);
     }
   };
+
+  
+  module.exports.logoutUser = (req,res)=>{
+  req.flash("message" ,  "LogeedOut successfully");
+  res.clearCookie("token").redirect("/")
+};
