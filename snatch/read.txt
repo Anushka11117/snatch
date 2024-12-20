@@ -25,7 +25,7 @@ npx nodemon .\app.js
 
 git add .
 git commit -m "Staged all changes for the project"
-
+git push origin master 
 
 const dbgr=require("debug")("development:mongoose");
 
